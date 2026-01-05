@@ -92,7 +92,13 @@ export default function Home() {
   );
 }
 
-function ServiceCard({ icon, title, desc, color }) {
+// استبدل الجزء السفلي من الملف بهذا
+function ServiceCard({ icon, title, desc, color }: { 
+  icon: React.ReactNode; 
+  title: string; 
+  desc: string; 
+  color: string; 
+}) {
   return (
     <div className="group p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 hover:border-blue-500/50 transition-all bg-slate-50/50 dark:bg-slate-900/40 backdrop-blur-sm hover:shadow-2xl hover:shadow-blue-500/5">
       <div className={`mb-6 p-4 bg-white dark:bg-slate-800 inline-block rounded-2xl shadow-sm group-hover:scale-110 transition-transform ${color}`}>
