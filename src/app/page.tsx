@@ -1,12 +1,15 @@
 "use client";
 
-import { Shield, Layout, Settings, Globe, Moon, Sun, GraduationCap, Code2, Briefcase, Cpu, ExternalLink } from "lucide-react";
+import { Shield, Layout, Settings, GraduationCap, Briefcase, Cpu } from "lucide-react";
 import { useState, useEffect } from "react";
+import AIAssistant from "@/components/AIAssistant";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   const [lang, setLang] = useState("EN");
   const [darkMode, setDarkMode] = useState(false);
 
+  // تفعيل الوضع الداكن عند تغيير الحالة
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
@@ -14,22 +17,6 @@ export default function Home() {
       document.documentElement.classList.remove('dark');
     }
   }, [darkMode]);
-
-  // مصفوفات البيانات
-  const projects = [
-    {
-      id: "01",
-      title: lang === "EN" ? "E-Commerce Platform" : "E-Commerce Plattform",
-      desc: lang === "EN" ? "Full-stack e-commerce solution with React and Django." : "Full-Stack-E-Commerce-Lösung mit React und Django.",
-      tags: ["React", "Django", "PostgreSQL"]
-    },
-    {
-      id: "02",
-      title: lang === "EN" ? "Task Management" : "Aufgabenmanagement",
-      desc: lang === "EN" ? "Real-time collaborative application." : "Echtzeit-Kollaborationsanwendung.",
-      tags: ["Next.js", "WebSockets", "Redis"]
-    }
-  ];
 
   const skills = [
     { name: "Python / Django", level: "90%" },
@@ -42,27 +29,17 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white transition-colors duration-500">
-      {/* Navbar */}
-      <nav className="p-6 flex justify-between items-center max-w-6xl mx-auto sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md">
-        <div className="font-bold text-2xl tracking-tighter italic">NOAH<span className="text-blue-600">.</span></div>
-        <div className="flex gap-4 items-center">
-          <button 
-            onClick={() => setLang(lang === "EN" ? "DE" : "EN")} 
-            className="flex items-center gap-2 text-sm font-bold border border-slate-200 dark:border-slate-800 px-4 py-2 rounded-full hover:bg-slate-50 dark:hover:bg-slate-900 transition-all"
-          >
-            <Globe size={16} /> {lang === "EN" ? "English" : "Deutsch"}
-          </button>
-          <button 
-            onClick={() => setDarkMode(!darkMode)}
-            className="p-3 bg-slate-100 dark:bg-slate-800 rounded-xl hover:scale-110 transition-all text-blue-600 dark:text-yellow-400"
-          >
-             {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
-        </div>
-      </nav>
+      
+      {/* Navbar الجديدة */}
+      <Navbar 
+        lang={lang} 
+        setLang={setLang} 
+        darkMode={darkMode} 
+        setDarkMode={setDarkMode} 
+      />
 
       {/* Hero Section */}
-      <section className="max-w-6xl mx-auto py-24 px-6 grid md:grid-cols-2 gap-12 items-center">
+      <section id="home" className="max-w-6xl mx-auto py-32 px-6 grid md:grid-cols-2 gap-12 items-center">
         <div>
           <div className="inline-block px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-sm font-bold mb-8 animate-pulse">
             {lang === "EN" ? "• Available for new opportunities" : "• Verfügbar für neue Möglichkeiten"}
@@ -95,9 +72,9 @@ export default function Home() {
       </section>
 
       {/* About Me Section */}
-      <section className="bg-slate-50 dark:bg-slate-900/50 py-24">
+      <section id="about" className="bg-slate-50 dark:bg-slate-900/50 py-24">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div className="grid md:grid-cols-2 gap-16 items-center border-b border-slate-200 dark:border-slate-800 pb-16">
             <div className="relative">
               <div className="aspect-square bg-slate-200 dark:bg-slate-800 rounded-[3rem] overflow-hidden flex items-center justify-center border-4 border-white dark:border-slate-800 shadow-2xl">
                  <span className="text-9xl">👤</span>
@@ -136,7 +113,7 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="max-w-6xl mx-auto py-24 px-6">
+      <section id="services" className="max-w-6xl mx-auto py-24 px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-black mb-4">{lang === "EN" ? "Core Services" : "Kernleistungen"}</h2>
           <p className="text-slate-500">{lang === "EN" ? "Expertise built over years of field experience" : "Über Jahre gewachsene Expertise"}</p>
@@ -149,7 +126,7 @@ export default function Home() {
       </section>
 
       {/* Skills Section */}
-      <section className="max-w-6xl mx-auto py-24 px-6 border-t border-slate-100 dark:border-slate-800">
+      <section id="skills" className="max-w-6xl mx-auto py-24 px-6 border-t border-slate-100 dark:border-slate-800">
         <h2 className="text-4xl font-black mb-12 text-center">{lang === "EN" ? "Technical Stack" : "Technischer Stack"}</h2>
         <div className="grid md:grid-cols-2 gap-x-16 gap-y-8">
           {skills.map((skill, index) => (
@@ -167,9 +144,12 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 text-center border-t border-slate-100 dark:border-slate-900 text-slate-400 text-sm">
+      <footer id="contact" className="py-12 text-center border-t border-slate-100 dark:border-slate-900 text-slate-400 text-sm">
         <p>© 2026 Noah Al-Samawi. {lang === "EN" ? "All rights reserved." : "Alle Rechte vorbehalten."}</p>
       </footer>
+
+      {/* المساعد الذكي */}
+      <AIAssistant />
     </main>
   );
 }
